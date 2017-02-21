@@ -14,7 +14,6 @@ var app = express();
 
 
 app.post("/",function(req,res){
-  console.log(req.body);
   res.end(JSON.stringify("webhook successfull"));
   console.log("webhook successfull !!");
 
