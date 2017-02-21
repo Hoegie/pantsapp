@@ -1,3 +1,4 @@
+/*version 1*/
 var express    = require('express');
 var mysql      = require('mysql');
 var bodyParser = require('body-parser');
@@ -439,6 +440,13 @@ connection.query('UPDATE apntokens SET ? WHERE token = ?',[put, req.params.token
     console.log('Error while performing Query.');
   }
   });
+});
+
+/*Version control API*/
+
+app.get("/pants/version",function(req,res){
+res.end(JSON.stringify("version 1"));
+console.log("version 1");
 });
 
 
