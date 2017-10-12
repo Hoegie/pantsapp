@@ -38,7 +38,7 @@ var app = express();
 
   var apnProvider = new apn.Provider({  
       token: {
-          key: 'certs/apns.p8', // Path to the key p8 file
+          key: '/home/sven/mobileapp/certs/apns.p8', // Path to the key p8 file
           keyId: 'AW53VE2WG7', // The Key ID of the p8 file (available at https://developer.apple.com/account/ios/certificate/key)
           teamId: '857J4HYVDU', // The Team ID of your Apple Developer Account (available at https://developer.apple.com/account/#/membership/)
       },
@@ -469,7 +469,7 @@ var data = {
   startdate: req.params.startdate
 };
 console.log(data);
-connection.query('SELECT *, CONVERT(DATE_FORMAT(timestamp,"%d-%m-%Y"), CHAR(50)) as alarmdate, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as alarmtime from alarm_logging WHERE timestamp >= STR_TO_DATE(?, "%d-%m-%Y") ORDER BY timestamp DESC', data.startdate, function(err, rows, fields) {
+connection.query('SELECT *, CONVERT(ping_successrate, CHAR(50)) as ping_successrate2, CONVERT(percent_with_ping_OK, CHAR(50)) as percent_with_ping_OK2, CONVERT(DATE_FORMAT(timestamp,"%d-%m-%Y"), CHAR(50)) as alarmdate, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as alarmtime from alarm_logging WHERE timestamp >= STR_TO_DATE(?, "%d-%m-%Y") ORDER BY timestamp DESC', data.startdate, function(err, rows, fields) {
 /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
