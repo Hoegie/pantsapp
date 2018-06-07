@@ -541,7 +541,7 @@ app.get("/stats/month/:year/:month/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND MONTH(timestamp) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.month, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND MONTH(timestamp) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.month, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -565,7 +565,7 @@ app.get("/stats/week/:year/:week/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND WEEK(timestamp, 3) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND WEEK(timestamp, 3) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -589,7 +589,7 @@ app.get("/stats/last2weeks/:year/:week/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND (WEEK(timestamp, 3) = ? OR WEEK(timestamp, 3) = ? - 1) AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.week, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_PDP_success_rate_daily WHERE YEAR(timestamp) = ? AND (WEEK(timestamp, 3) = ? OR WEEK(timestamp, 3) = ? - 1) AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.week, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -635,7 +635,7 @@ app.get("/stats/last2days/:date/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, success_rate, APN_count FROM pants.logging_PDP_success_rate_hourly WHERE (DATE_FORMAT(timestamp, "%Y-%m-%d") =  STR_TO_DATE(?, "%d-%m-%Y") OR DATE_FORMAT(timestamp, "%Y-%m-%d") = DATE_ADD(STR_TO_DATE(?, "%d-%m-%Y"), INTERVAL -1 DAY)) AND APN_type like ? ORDER BY timestamp, hour', [data.date, data.date, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_PDP_success_rate_hourly WHERE (DATE_FORMAT(timestamp, "%Y-%m-%d") =  STR_TO_DATE(?, "%d-%m-%Y") OR DATE_FORMAT(timestamp, "%Y-%m-%d") = DATE_ADD(STR_TO_DATE(?, "%d-%m-%Y"), INTERVAL -1 DAY)) AND APN_type like ? ORDER BY timestamp, hour', [data.date, data.date, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -709,7 +709,7 @@ app.get("/pings/last2days/:date/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, success_rate, APN_count FROM pants.logging_ping_success_rate_hourly WHERE (DATE_FORMAT(timestamp, "%Y-%m-%d") =  STR_TO_DATE(?, "%d-%m-%Y") OR DATE_FORMAT(timestamp, "%Y-%m-%d") = DATE_ADD(STR_TO_DATE(?, "%d-%m-%Y"), INTERVAL -1 DAY)) AND APN_type like ? ORDER BY timestamp, hour', [data.date, data.date, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_ping_success_rate_hourly WHERE (DATE_FORMAT(timestamp, "%Y-%m-%d") =  STR_TO_DATE(?, "%d-%m-%Y") OR DATE_FORMAT(timestamp, "%Y-%m-%d") = DATE_ADD(STR_TO_DATE(?, "%d-%m-%Y"), INTERVAL -1 DAY)) AND APN_type like ? ORDER BY timestamp, hour', [data.date, data.date, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -733,7 +733,7 @@ app.get("/pings/week/:year/:week/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND WEEK(timestamp, 3) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND WEEK(timestamp, 3) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -757,7 +757,7 @@ app.get("/pings/last2weeks/:year/:week/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND (WEEK(timestamp, 3) = ? OR WEEK(timestamp, 3) = ? - 1) AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.week, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND (WEEK(timestamp, 3) = ? OR WEEK(timestamp, 3) = ? - 1) AND APN_type like ? ORDER BY timestamp', [data.year, data.week, data.week, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -781,7 +781,7 @@ app.get("/pings/month/:year/:month/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND MONTH(timestamp) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.month, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_ping_success_rate_daily WHERE YEAR(timestamp) = ? AND MONTH(timestamp) = ? AND APN_type like ? ORDER BY timestamp', [data.year, data.month, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
