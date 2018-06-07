@@ -612,7 +612,7 @@ app.get("/stats/day/:date/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, success_rate, APN_count FROM pants.logging_PDP_success_rate_hourly WHERE DATE_FORMAT(timestamp, "%d-%m-%Y") LIKE ? AND APN_type like ? ORDER BY hour', [data.date, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_PDP_success_rate_hourly WHERE DATE_FORMAT(timestamp, "%d-%m-%Y") LIKE ? AND APN_type like ? ORDER BY hour', [data.date, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
@@ -686,7 +686,7 @@ app.get("/pings/day/:date/:solution",function(req,res){
         solution: solutionstring
     };
     console.log(data);
-connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, success_rate, APN_count FROM pants.logging_ping_success_rate_hourly WHERE DATE_FORMAT(timestamp, "%d-%m-%Y") LIKE ? AND APN_type like ? ORDER BY hour', [data.date, data.solution], function(err, rows, fields) {
+connection.query('SELECT CONVERT(DATE_FORMAT(timestamp,"%d-%b"), CHAR(50)) as timestampstring, CONVERT(DATE_FORMAT(timestamp,"%H:%i"), CHAR(50)) as hour, APN_type, CONVERT(success_rate, CHAR) AS success_rate, APN_count FROM pants.logging_ping_success_rate_hourly WHERE DATE_FORMAT(timestamp, "%d-%m-%Y") LIKE ? AND APN_type like ? ORDER BY hour', [data.date, data.solution], function(err, rows, fields) {
   /*connection.end();*/
   if (!err){
     console.log('The solution is: ', rows);
